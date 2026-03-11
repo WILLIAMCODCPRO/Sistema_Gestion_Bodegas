@@ -6,28 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
-@Table(name = "bodega")
+@Table(name = "usuario")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bodega {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
-
-    @Column(nullable = false)
-    private  String ubicacion;
-
-    @Column(nullable = false)
-    private Integer capacidad;
-
-    @Column(nullable = false)
-    private  String encargado;
+    private Rol rol;
 }
