@@ -10,7 +10,7 @@ CREATE TABLE producto (
 );
 
 CREATE TABLE bodega (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     ubicacion VARCHAR(100) NOT NULL,
     capacidad INT NOT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE movimiento_inventario (
     fecha DATETIME NOT NULL,
     id_usuario INT NOT NULL,
     tipo_movimiento ENUM('ENTRADA','SALIDA','TRASNFERENCIA') NOT NULL,
-    id_bodega_origen INT NOT NULL,
-    id_bodega_destino INT NOT NULL,
+    id_bodega_origen INT ,
+    id_bodega_destino INT,
 
     FOREIGN KEY (id_usuario) REFERENCES usuario(id),
     FOREIGN KEY (id_bodega_origen) REFERENCES bodega(id),
@@ -50,6 +50,7 @@ CREATE TABLE inventario (
     id_bodega int NOT NULL,
     id_producto INT NOT NULL,
     stock_producto INT NOT NULL,
+    UNIQUE(id_bodega, id_producto),
 
     FOREIGN KEY (id_bodega) REFERENCES bodega(id),
     FOREIGN KEY (id_producto) REFERENCES producto(id)
@@ -63,8 +64,8 @@ CREATE TABLE auditoria (
     entidad VARCHAR(50) NOT NULL,
     id_fila_modificada INT NOT NULL,
     columna_modificada VARCHAR(70) NOT NULL,
-    valor_antiguo VARCHAR(200) NOT NULL,
-    valor_nuevo VARCHAR(200) NOT NULL,
+    valor_antiguo VARCHAR(200) ,
+    valor_nuevo VARCHAR(200) ,
 
     FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );

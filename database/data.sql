@@ -5,10 +5,10 @@ INSERT INTO producto (nombre, categoria, precio) VALUES
 ('Monitor Samsung', 'Tecnologia', 900.00),
 ('Disco SSD 1TB', 'Almacenamiento', 450.00);
 
-INSERT INTO bodega (id, nombre, ubicacion, capacidad, encargado) VALUES
-(1, 'Bodega Central', 'Bogotá', 1000, 'Carlos Ramirez'),
-(2, 'Bodega Norte', 'Medellín', 800, 'Ana Torres'),
-(3, 'Bodega Sur', 'Cali', 600, 'Luis Mendoza');
+INSERT INTO bodega (nombre, ubicacion, capacidad, encargado) VALUES
+('Bodega Central', 'Bogotá', 1000, 'Carlos Ramirez'),
+('Bodega Norte', 'Medellín', 800, 'Ana Torres'),
+('Bodega Sur', 'Cali', 600, 'Luis Mendoza');
 
 INSERT INTO usuario (rol) VALUES('ADMIN'), ('EMPLEADO');
 
@@ -30,3 +30,10 @@ INSERT INTO detalle_movimiento (id_producto, cantidad_producto, id_movimiento_in
 (1,5,1),
 (2,10,2),
 (3,7,3);
+
+INSERT INTO auditoria 
+(tipo_operacion, fecha, id_usuario, entidad, id_fila_modificada, columna_modificada, valor_antiguo, valor_nuevo)
+VALUES
+('INSERT','2026-03-10 10:00:00',1,'producto',6,'nombre','NULL','Tablet Samsung'),
+('UPDATE','2026-03-10 11:00:00',2,'inventario',1,'stock_producto','20','25'),
+('DELETE','2026-03-10 12:00:00',1,'producto',3,'nombre','Teclado Mecánico','NULL');
