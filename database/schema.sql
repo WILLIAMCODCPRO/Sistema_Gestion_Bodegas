@@ -59,10 +59,12 @@ CREATE TABLE auditoria (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo_operacion ENUM('INSERT','UPDATE','DELETE') NOT NULL,
     fecha DATETIME NOT NULL,
-    usuario VARCHAR(50) NOT NULL,
+    id_usuario INT NOT NULL,
     entidad VARCHAR(50) NOT NULL,
     id_fila_modificada INT NOT NULL,
     columna_modificada VARCHAR(70) NOT NULL,
     valor_antiguo VARCHAR(200) NOT NULL,
-    valor_nuevo VARCHAR(200) NOT NULL
+    valor_nuevo VARCHAR(200) NOT NULL,
+
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
