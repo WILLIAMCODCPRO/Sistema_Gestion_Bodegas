@@ -5,7 +5,7 @@ use LogiTrack;
 CREATE TABLE producto (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    categoria VARCHAR(50),
+    categoria VARCHAR(50) NOT NULL,
     precio DECIMAL NOT NULL
 );
 
