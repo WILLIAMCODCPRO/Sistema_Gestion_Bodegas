@@ -1,7 +1,5 @@
-package com.s1.gestion_bodegas;
+package com.s1.gestion_bodegas.model;
 
-import com.s1.gestion_bodegas.model.Bodega;
-import com.s1.gestion_bodegas.model.Producto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
