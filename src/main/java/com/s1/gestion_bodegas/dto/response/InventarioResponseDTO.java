@@ -1,15 +1,13 @@
 package com.s1.gestion_bodegas.dto.response;
 
-import com.s1.gestion_bodegas.model.Bodega;
-import com.s1.gestion_bodegas.model.Producto;
 
 public record InventarioResponseDTO(
 
         Long id,
 
-        Bodega bodega,
+        BodegaResponseDTO bodega,
 
-        Producto producto,
+        ProductoResponseDTO producto,
 
         Integer stock_producto
 ) {
