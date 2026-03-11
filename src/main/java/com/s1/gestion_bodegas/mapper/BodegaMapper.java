@@ -30,4 +30,12 @@ public class BodegaMapper {
 
     }
 
+    public void actualizarEntidadDesdeDTO(BodegaRequestDTO bodegaRequestDTO, Bodega bodega){
+        if (bodegaRequestDTO == null || bodega == null) return;
+        bodega.setNombre(bodegaRequestDTO.nombre());
+        bodega.setUbicacion(bodegaRequestDTO.ubicacion());
+        bodega.setCapacidad(bodegaRequestDTO.capacidad());
+        bodega.setEncargado(bodegaRequestDTO.encargado());
+    }
+
 }
