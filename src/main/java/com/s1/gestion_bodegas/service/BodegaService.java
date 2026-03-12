@@ -13,4 +13,6 @@ public interface BodegaService {
     BodegaResponseDTO buscarBodegaID(Long id);
 
     BodegaResponseDTO actualizarBodega(BodegaRequestDTO bodegaRequestDTO, Long id);
+
+    void eliminarBodega(Long id);
 }

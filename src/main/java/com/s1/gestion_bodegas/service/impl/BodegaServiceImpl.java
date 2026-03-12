@@ -38,4 +38,10 @@ public class BodegaServiceImpl implements BodegaService {
         bodegaMapper.actualizarEntidadDesdeDTO(bodegaRequestDTO,bodega);
         return bodegaMapper.entidadADTO(bodegaRepository.save(bodega));
     }
+
+    @Override
+    public void eliminarBodega(Long id) {
+        Bodega bodega = bodegaRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Esa bodega no existe"));
+        bodegaRepository.delete(bodega);
+    }
 }
