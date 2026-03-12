@@ -26,7 +26,7 @@ public class Producto {
     @Column(nullable = false)
     private BigDecimal precio;
 
-    @Column(nullable = false, name = "stockProducto")
+    @Column(nullable = false, name = "stock_producto")
     private Integer stockProducto;
 
     @ManyToOne(fetch = FetchType.LAZY)

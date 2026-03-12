@@ -4,9 +4,12 @@ import com.s1.gestion_bodegas.dto.request.ProductoRequestDTO;
 import com.s1.gestion_bodegas.dto.response.ProductoResponseDTO;
 import com.s1.gestion_bodegas.mapper.BodegaMapper;
 import com.s1.gestion_bodegas.mapper.ProductoMapper;
+import com.s1.gestion_bodegas.model.Bodega;
+import com.s1.gestion_bodegas.model.Producto;
 import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.repository.ProductoRepository;
 import com.s1.gestion_bodegas.service.ProductoService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +42,9 @@ public class ProductoServiceimpl implements ProductoService {
 
     @Override
     public ProductoResponseDTO registrarProducto(ProductoRequestDTO productoRequestDTO) {
-        return null;
+        Bodega bodega = bodegaRepository.findById(productoRequestDTO.bodegaId()).orElseThrow(()->new EntityNotFoundException("la bodega a insertar no existe"));
+        Producto producto = productoMapper.DTOAEntidad(productoRequestDTO,bodega);
+        return productoMapper.entidadADTO(productoRepository.save(producto),bodegaMapper.entidadADTO(bodega));
     }
 
     @Override
