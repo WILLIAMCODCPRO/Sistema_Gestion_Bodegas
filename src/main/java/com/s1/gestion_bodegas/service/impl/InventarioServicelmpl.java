@@ -32,11 +32,11 @@ public class InventarioServicelmpl implements InventarioService {
                         dato,
                         bodegaMapper.entidadADTO(
                                 bodegaRepository.findById(dato.getBodega().getId())
-                                        .orElseThrow(() -> new EntityNotFoundException("No existe la bodega"))
+                                        .orElseThrow()
                         ),
                         productoMapper.entidadADTO(
                                 productoRepository.findById(dato.getProducto().getId())
-                                        .orElseThrow(() -> new EntityNotFoundException("No existe el producto"))
+                                        .orElseThrow()
                         )
                 ))
                 .toList();
@@ -49,11 +49,11 @@ public class InventarioServicelmpl implements InventarioService {
                         dato,
                         bodegaMapper.entidadADTO(
                                 bodegaRepository.findById(dato.getBodega().getId())
-                                        .orElseThrow(() -> new EntityNotFoundException("No existe la bodega"))
+                                        .orElseThrow()
                         ),
                         productoMapper.entidadADTO(
                                 productoRepository.findById(dato.getProducto().getId())
-                                        .orElseThrow(() -> new EntityNotFoundException("No existe el producto"))
+                                        .orElseThrow()
                         )
                 ))
                 .toList();

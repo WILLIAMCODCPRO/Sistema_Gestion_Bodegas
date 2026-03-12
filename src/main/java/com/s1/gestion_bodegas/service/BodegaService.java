@@ -8,5 +8,7 @@ import java.util.List;
 public interface BodegaService {
     List<BodegaResponseDTO> listarBodegas();
 
-    BodegaResponseDTO registrarPersona(BodegaRequestDTO bodegaRequestDTO);
+    BodegaResponseDTO registrarBodega(BodegaRequestDTO bodegaRequestDTO);
+
+    BodegaResponseDTO buscarBodegaID(Long id);
 }
