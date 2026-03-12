@@ -2,14 +2,6 @@ create database LogiTrack;
 
 use LogiTrack;
 
-CREATE TABLE producto (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    categoria VARCHAR(50) NOT NULL,
-    precio DECIMAL NOT NULL,
-    stock_producto INT NOT NULL
-);
-
 CREATE TABLE bodega (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
@@ -17,6 +9,18 @@ CREATE TABLE bodega (
     capacidad INT NOT NULL,
     encargado VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE producto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    categoria VARCHAR(50) NOT NULL,
+    precio DECIMAL NOT NULL,
+    stock_producto INT NOT NULL,
+    id_bodega INT NOT NULL,
+
+    FOREIGN KEY (id_bodega) REFERENCES bodega(id)
+);
+
 
 CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,7 +43,6 @@ CREATE TABLE movimiento_inventario (
     FOREIGN KEY (id_producto) REFERENCES producto(id),
     FOREIGN KEY (id_bodega_destino) REFERENCES bodega(id)
 );
-
 
 
 CREATE TABLE auditoria (

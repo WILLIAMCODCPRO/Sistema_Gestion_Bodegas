@@ -1,7 +1,5 @@
 package com.s1.gestion_bodegas.dto.request;
 
-import jakarta.persistence.Column;
-
 import java.math.BigDecimal;
 
 public record ProductoRequestDTO(
@@ -10,6 +8,10 @@ public record ProductoRequestDTO(
 
         String categoria,
 
-        BigDecimal precio
+        BigDecimal precio,
+
+        Integer stockProducto,
+
+        Long bodegaId
 ) {
 }

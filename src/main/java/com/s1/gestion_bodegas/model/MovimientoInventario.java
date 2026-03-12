@@ -30,6 +30,13 @@ public class MovimientoInventario {
     private TipoMovimiento tipo_movimiento;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto", nullable = false)
+    private Producto producto;
+
+    @Column(nullable = false)
+    private Integer cantidad_producto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_bodega_origen")
     private Bodega bodega_origen;
 

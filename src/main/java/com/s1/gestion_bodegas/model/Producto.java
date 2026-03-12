@@ -25,4 +25,11 @@ public class Producto {
 
     @Column(nullable = false)
     private BigDecimal precio;
+
+    @Column(nullable = false, name = "stockProducto")
+    private Integer stockProducto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_bodega")
+    private Bodega bodega;
 }
