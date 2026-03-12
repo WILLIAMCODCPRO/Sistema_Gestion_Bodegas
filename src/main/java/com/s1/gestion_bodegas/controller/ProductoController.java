@@ -32,4 +32,9 @@ public class ProductoController {
     public  ResponseEntity<ProductoResponseDTO>buscarProductoID(@PathVariable Long id){
         return ResponseEntity.ok().body(productoServiceimpl.buscarProductoID(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductoResponseDTO>actualizarProducto(@PathVariable Long id, @RequestBody ProductoRequestDTO productoRequestDTO){
+        return ResponseEntity.ok().body(productoServiceimpl.actualizarProducto(productoRequestDTO,id));
+    }
 }
