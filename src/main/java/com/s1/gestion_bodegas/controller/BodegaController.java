@@ -38,4 +38,10 @@ public class BodegaController {
         return ResponseEntity.ok().body(bodegaService.actualizarBodega(bodegaRequestDTO,id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>eliminarBodega(@PathVariable Long id){
+        bodegaService.eliminarBodega(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
