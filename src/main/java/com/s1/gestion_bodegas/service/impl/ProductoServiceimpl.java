@@ -64,6 +64,7 @@ public class ProductoServiceimpl implements ProductoService {
 
     @Override
     public void eliminarProducto(Long id) {
-
+        Producto producto = productoRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicho producto"));
+        productoRepository.delete(producto);
     }
 }
