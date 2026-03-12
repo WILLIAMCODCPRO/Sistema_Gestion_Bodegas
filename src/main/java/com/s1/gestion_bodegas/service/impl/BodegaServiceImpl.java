@@ -3,6 +3,7 @@ package com.s1.gestion_bodegas.service.impl;
 import com.s1.gestion_bodegas.dto.request.BodegaRequestDTO;
 import com.s1.gestion_bodegas.dto.response.BodegaResponseDTO;
 import com.s1.gestion_bodegas.mapper.BodegaMapper;
+import com.s1.gestion_bodegas.model.Bodega;
 import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.service.BodegaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,5 +30,12 @@ public class BodegaServiceImpl implements BodegaService {
     @Override
     public BodegaResponseDTO buscarBodegaID(Long id) {
         return bodegaMapper.entidadADTO(bodegaRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicha bodega")));
+    }
+
+    @Override
+    public BodegaResponseDTO actualizarBodega(BodegaRequestDTO bodegaRequestDTO, Long id) {
+        Bodega bodega = bodegaRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicha bodega"));
+        bodegaMapper.actualizarEntidadDesdeDTO(bodegaRequestDTO,bodega);
+        return bodegaMapper.entidadADTO(bodegaRepository.save(bodega));
     }
 }

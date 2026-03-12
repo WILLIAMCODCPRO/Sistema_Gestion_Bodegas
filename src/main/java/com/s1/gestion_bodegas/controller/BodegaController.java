@@ -33,4 +33,9 @@ public class BodegaController {
         return ResponseEntity.ok().body(bodegaService.buscarBodegaID(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BodegaResponseDTO>actualizarBodega(@PathVariable Long id, @RequestBody BodegaRequestDTO bodegaRequestDTO){
+        return ResponseEntity.ok().body(bodegaService.actualizarBodega(bodegaRequestDTO,id));
+    }
+
 }

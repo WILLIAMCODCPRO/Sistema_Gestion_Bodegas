@@ -11,4 +11,6 @@ public interface BodegaService {
     BodegaResponseDTO registrarBodega(BodegaRequestDTO bodegaRequestDTO);
 
     BodegaResponseDTO buscarBodegaID(Long id);
+
+    BodegaResponseDTO actualizarBodega(BodegaRequestDTO bodegaRequestDTO, Long id);
 }
