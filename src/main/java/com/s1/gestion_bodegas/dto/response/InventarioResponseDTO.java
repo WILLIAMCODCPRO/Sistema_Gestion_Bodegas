@@ -9,6 +9,6 @@ public record InventarioResponseDTO(
 
         ProductoResponseDTO producto,
 
-        Integer stock_producto
+        Integer stockProducto
 ) {
 }

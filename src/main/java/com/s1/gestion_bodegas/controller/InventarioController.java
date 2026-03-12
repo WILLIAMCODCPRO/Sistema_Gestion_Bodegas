@@ -21,7 +21,12 @@ public class InventarioController {
     private final InventarioServicelmpl inventarioServicelmpl;
 
     @GetMapping
-    public ResponseEntity<List<InventarioResponseDTO>> listarBodegas(){
+    public ResponseEntity<List<InventarioResponseDTO>> listarInventario(){
         return ResponseEntity.ok().body(inventarioServicelmpl.listarInventario());
+    }
+
+    @GetMapping("/stockbajo")
+    public ResponseEntity<List<InventarioResponseDTO>> listarStockBajo(){
+        return ResponseEntity.ok().body(inventarioServicelmpl.listarStokcBajo());
     }
 }

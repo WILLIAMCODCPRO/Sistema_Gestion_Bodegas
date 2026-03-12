@@ -41,4 +41,21 @@ public class InventarioServicelmpl implements InventarioService {
                 ))
                 .toList();
     }
+
+    public List<InventarioResponseDTO> listarStokcBajo(){
+        return inventarioRepository.findByStockProductoLessThan(10)
+                .stream()
+                .map(dato -> inventarioMapper.entidadADTO(
+                        dato,
+                        bodegaMapper.entidadADTO(
+                                bodegaRepository.findById(dato.getBodega().getId())
+                                        .orElseThrow(() -> new EntityNotFoundException("No existe la bodega"))
+                        ),
+                        productoMapper.entidadADTO(
+                                productoRepository.findById(dato.getProducto().getId())
+                                        .orElseThrow(() -> new EntityNotFoundException("No existe el producto"))
+                        )
+                ))
+                .toList();
+    }
 }

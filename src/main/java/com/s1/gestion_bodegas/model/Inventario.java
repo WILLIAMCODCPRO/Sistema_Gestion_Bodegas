@@ -25,6 +25,6 @@ public class Inventario {
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
-    @Column(nullable = false)
-    private Integer stock_producto;
+    @Column(nullable = false, name = "stockProducto")
+    private Integer stockProducto;
 }

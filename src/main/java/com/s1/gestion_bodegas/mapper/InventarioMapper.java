@@ -20,7 +20,7 @@ public class InventarioMapper {
                 inventario.getId(),
                 bodegaResponseDTO,
                 productoResponseDTO,
-                inventario.getStock_producto()
+                inventario.getStockProducto()
         );
     }
 
@@ -29,13 +29,13 @@ public class InventarioMapper {
         Inventario inventario = new Inventario();
         inventario.setBodega(bodega);
         inventario.setProducto(producto);
-        inventario.setStock_producto(inventarioRequestDTO.stock_producto());
+        inventario.setStockProducto(inventarioRequestDTO.stockProducto());
         return inventario;
     }
 
     public void actualizarEntidadDesdeDTO(InventarioRequestDTO inventarioRequestDTO, Inventario inventario, Bodega bodega, Producto producto){
         inventario.setBodega(bodega);
         inventario.setProducto(producto);
-        inventario.setStock_producto(inventarioRequestDTO.stock_producto());
+        inventario.setStockProducto(inventarioRequestDTO.stockProducto());
     }
 }
