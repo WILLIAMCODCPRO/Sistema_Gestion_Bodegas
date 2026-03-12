@@ -11,7 +11,7 @@ public record ProductoResponseDTO(
 
         BigDecimal precio,
 
-        Integer stock_producto,
+        Integer stockProducto,
 
         BodegaResponseDTO bodega
 ) {

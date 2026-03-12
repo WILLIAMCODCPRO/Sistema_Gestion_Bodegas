@@ -10,7 +10,7 @@ public record ProductoRequestDTO(
 
         BigDecimal precio,
 
-        Integer stock_producto,
+        Integer stockProducto,
 
         Long bodegaId
 ) {

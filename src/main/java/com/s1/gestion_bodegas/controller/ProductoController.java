@@ -27,4 +27,9 @@ public class ProductoController {
     public ResponseEntity<ProductoResponseDTO>registrarProducto(@RequestBody ProductoRequestDTO productoRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(productoServiceimpl.registrarProducto(productoRequestDTO));
     }
+
+    @GetMapping("/{id}")
+    public  ResponseEntity<ProductoResponseDTO>buscarProductoID(@PathVariable Long id){
+        return ResponseEntity.ok().body(productoServiceimpl.buscarProductoID(id));
+    }
 }

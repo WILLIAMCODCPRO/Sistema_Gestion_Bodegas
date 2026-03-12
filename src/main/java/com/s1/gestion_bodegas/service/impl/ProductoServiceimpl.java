@@ -49,7 +49,9 @@ public class ProductoServiceimpl implements ProductoService {
 
     @Override
     public ProductoResponseDTO buscarProductoID(Long id) {
-        return null;
+        Producto producto = productoRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicho producto"));
+        Bodega bodega = bodegaRepository.findById(producto.getBodega().getId()).orElseThrow();
+        return productoMapper.entidadADTO(producto,bodegaMapper.entidadADTO(bodega));
     }
 
     @Override

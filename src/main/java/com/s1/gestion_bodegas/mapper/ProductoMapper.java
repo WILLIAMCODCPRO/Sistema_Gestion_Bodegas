@@ -27,7 +27,7 @@ public class ProductoMapper {
             producto.setNombre(productoRequestDTO.nombre());
             producto.setCategoria(productoRequestDTO.categoria());
             producto.setPrecio(productoRequestDTO.precio());
-            producto.setStockProducto(productoRequestDTO.stock_producto());
+            producto.setStockProducto(productoRequestDTO.stockProducto());
             producto.setBodega(bodega);
             return producto;
 
@@ -38,7 +38,7 @@ public class ProductoMapper {
             producto.setNombre(productoRequestDTO.nombre());
             producto.setCategoria(productoRequestDTO.categoria());
             producto.setPrecio(productoRequestDTO.precio());
-            producto.setStockProducto(productoRequestDTO.stock_producto());
+            producto.setStockProducto(productoRequestDTO.stockProducto());
             producto.setBodega(bodega);
         }
 }
