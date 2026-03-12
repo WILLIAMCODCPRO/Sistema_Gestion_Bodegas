@@ -1,7 +1,9 @@
 package com.s1.gestion_bodegas.service.impl;
 
+import com.s1.gestion_bodegas.dto.request.BodegaRequestDTO;
 import com.s1.gestion_bodegas.dto.response.BodegaResponseDTO;
 import com.s1.gestion_bodegas.mapper.BodegaMapper;
+import com.s1.gestion_bodegas.model.Bodega;
 import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.service.BodegaService;
 import lombok.RequiredArgsConstructor;
@@ -17,5 +19,10 @@ public class BodegaServiceImpl implements BodegaService {
     @Override
     public List<BodegaResponseDTO> listarBodegas() {
         return bodegaRepository.findAll().stream().map(bodegaMapper::entidadADTO).toList();
+    }
+
+    @Override
+    public BodegaResponseDTO registrarPersona(BodegaRequestDTO bodegaRequestDTO) {
+        return bodegaMapper.entidadADTO(bodegaRepository.save(bodegaMapper.DTOAEntidad(bodegaRequestDTO)));
     }
 }
