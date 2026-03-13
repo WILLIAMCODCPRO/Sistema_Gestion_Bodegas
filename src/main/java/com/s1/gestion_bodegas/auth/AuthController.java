@@ -15,22 +15,13 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+
 public class AuthController {
 
-    private final JwtService jwtService;
-    private final UsuarioRepository usuarioRepository;
-
+    private final AuthService authService;
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody LoginRequest request) {
-        Usuario usuario = usuarioRepository.findByNombreUsuario(request.nombreUsuario()).orElseThrow(() -> new BusinessRuleException("Usuario no encontrado"));
-        if (!usuario.getPassword().equals(request.password())) {
-            throw new BusinessRuleException("Credenciales inválidas");
-
-
-        }
-        String token = jwtService.generateToken(usuario.getNombreUsuario());
-
-        return Map.of("token", token);
+    public LoginResponse  login(@RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 }
