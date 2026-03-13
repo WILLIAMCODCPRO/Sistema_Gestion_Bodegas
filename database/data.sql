@@ -4,11 +4,12 @@ INSERT INTO bodega (nombre, ubicacion, capacidad, encargado) VALUES
 ('Bodega Sur', 'Bogotá Sur', 250, 'Andrés Rojas'),
 ('Bodega Occidente', 'Bogotá Occidente', 200, 'Marta Díaz');
 
-INSERT INTO usuario (password, rol) VALUES
-('admin123', 'ADMIN'),
-('empleado123', 'EMPLEADO'),
-('empleado456', 'EMPLEADO'),
-('empleado789', 'EMPLEADO');
+INSERT INTO usuario (nombre_usuario, password, rol) VALUES
+('admin', '12344', 'ADMIN'),
+('juan', '12314', 'EMPLEADO'),
+('maria', '12734', 'EMPLEADO'),
+('carlos', '11234', 'EMPLEADO'),
+('ana', '12834', 'ADMIN');
 
 INSERT INTO producto (nombre, categoria, precio, stock_producto, id_bodega) VALUES
 ('Laptop Lenovo', 'Tecnologia', 3500000, 15, 1),

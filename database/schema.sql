@@ -24,7 +24,8 @@ CREATE TABLE producto (
 
 CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    password VARCHAR(200),
+    nombre_usuario VARCHAR(200) UNIQUE NOT NULL,
+    password VARCHAR(200)UNIQUE NOT NULL,
     rol ENUM('ADMIN','EMPLEADO') NOT NULL
 );
 
