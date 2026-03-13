@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductoMapper {
         public ProductoResponseDTO entidadADTO(Producto producto, BodegaResponseDTO bodegaResponseDTO) {
-            if (producto == null) return null;
+            if (producto == null || bodegaResponseDTO == null) return null;
             return new ProductoResponseDTO(
                     producto.getId(),
                     producto.getNombre(),
@@ -22,7 +22,7 @@ public class ProductoMapper {
         }
 
         public Producto DTOAEntidad(ProductoRequestDTO productoRequestDTO, Bodega bodega) {
-            if (productoRequestDTO == null) return null;
+            if (productoRequestDTO == null || bodega == null) return null;
             Producto producto = new Producto();
             producto.setNombre(productoRequestDTO.nombre());
             producto.setCategoria(productoRequestDTO.categoria());

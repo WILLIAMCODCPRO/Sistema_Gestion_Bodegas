@@ -16,16 +16,16 @@ public record MovimientoInventarioResponseDTO(
 
        LocalDateTime fecha,
 
-       Usuario usuario,
+       UsuarioResponseDTO usuario,
 
        TipoMovimiento tipoMovimiento,
 
-       Producto producto,
+       ProductoResponseDTO producto,
 
        Integer cantidadProducto,
 
-       Bodega bodegaOrigen,
+       BodegaResponseDTO bodegaOrigen,
 
-       Bodega bodegaDestino
+       BodegaResponseDTO bodegaDestino
 ) {
 }
