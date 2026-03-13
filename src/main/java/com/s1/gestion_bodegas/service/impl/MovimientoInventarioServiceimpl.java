@@ -1,8 +1,13 @@
 package com.s1.gestion_bodegas.service.impl;
 
 import com.s1.gestion_bodegas.dto.response.MovimientoInventarioResponseDTO;
+import com.s1.gestion_bodegas.mapper.BodegaMapper;
 import com.s1.gestion_bodegas.mapper.MovimientoInventarioMapper;
+import com.s1.gestion_bodegas.mapper.ProductoMapper;
+import com.s1.gestion_bodegas.mapper.UsuarioMapper;
+import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.repository.MovimientoInventarioRepository;
+import com.s1.gestion_bodegas.repository.ProductoRepository;
 import com.s1.gestion_bodegas.repository.UsuarioRepository;
 import com.s1.gestion_bodegas.service.MovimientoInventarioService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +21,26 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
     public final MovimientoInventarioRepository movimientoInventarioRepository;
     public final MovimientoInventarioMapper movimientoInventarioMapper;
     public final UsuarioRepository usuarioRepository;
+    public final UsuarioMapper usuarioMapper;
+    public final ProductoRepository productoRepository;
+    public final ProductoMapper productoMapper;
+    public final BodegaRepository bodegaRepository;
+    public final BodegaMapper bodegaMapper;
+    public final ProductoServiceimpl productoServiceImpl;
+
     @Override
     public List<MovimientoInventarioResponseDTO> listarMovimientos() {
-        return movimientoInventarioRepository.findAll().stream().map(dato ->)
+
+        return movimientoInventarioRepository
+                .findAll()
+                .stream()
+                .map(dato -> movimientoInventarioMapper.entidadADTO(
+                         dato,
+                        usuarioMapper.entidadADTO(usuarioRepository.findById(dato.getUsuario().getId()).orElseThrow()),
+                        productoServiceImpl.buscarProductoID(dato.getProducto().getId()),
+                        bodegaMapper.entidadADTO(bodegaRepository.findById(dato.getBodegaOrigen().getId()).orElseThrow()),
+                        bodegaMapper.entidadADTO(bodegaRepository.findById(dato.getBodegaDestino().getId()).orElseThrow())
+                        )
+                ).toList();
     }
 }
