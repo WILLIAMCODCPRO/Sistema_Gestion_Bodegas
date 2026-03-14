@@ -1,16 +1,23 @@
 package com.s1.gestion_bodegas.service.impl;
 
+import com.s1.gestion_bodegas.auth.AuthService;
+import com.s1.gestion_bodegas.dto.request.MovimientoInventarioRequestDTO;
 import com.s1.gestion_bodegas.dto.response.BodegaResponseDTO;
 import com.s1.gestion_bodegas.dto.response.MovimientoInventarioResponseDTO;
 import com.s1.gestion_bodegas.mapper.BodegaMapper;
 import com.s1.gestion_bodegas.mapper.MovimientoInventarioMapper;
 import com.s1.gestion_bodegas.mapper.ProductoMapper;
 import com.s1.gestion_bodegas.mapper.UsuarioMapper;
+import com.s1.gestion_bodegas.model.Bodega;
+import com.s1.gestion_bodegas.model.MovimientoInventario;
+import com.s1.gestion_bodegas.model.Producto;
+import com.s1.gestion_bodegas.model.Usuario;
 import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.repository.MovimientoInventarioRepository;
 import com.s1.gestion_bodegas.repository.ProductoRepository;
 import com.s1.gestion_bodegas.repository.UsuarioRepository;
 import com.s1.gestion_bodegas.service.MovimientoInventarioService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +26,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MovimientoInventarioServiceimpl implements MovimientoInventarioService {
+
     public final MovimientoInventarioRepository movimientoInventarioRepository;
     public final MovimientoInventarioMapper movimientoInventarioMapper;
     public final UsuarioRepository usuarioRepository;
@@ -26,6 +34,9 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
     public final BodegaRepository bodegaRepository;
     public final BodegaMapper bodegaMapper;
     public final ProductoServiceimpl productoServiceImpl;
+    public final ProductoMapper productoMapper;
+    public final ProductoRepository productoRepository;
+    public final AuthService authService;
 
     @Override
     public List<MovimientoInventarioResponseDTO> listarMovimientos() {
@@ -42,16 +53,28 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
                         dato.getBodegaOrigen() != null
                                 ? bodegaMapper.entidadADTO(
                                 bodegaRepository.findById(dato.getBodegaOrigen().getId())
-                                        .orElse(null)
+                                        .orElseThrow()
                         )
                                 : null,
                         dato.getBodegaDestino() != null
                                 ? bodegaMapper.entidadADTO(
                                 bodegaRepository.findById(dato.getBodegaDestino().getId())
-                                        .orElse(null)
+                                        .orElseThrow()
                         )
                                 : null
                 ))
                 .toList();
     }
+
+    @Override
+    public MovimientoInventarioResponseDTO registrarMovimiento(MovimientoInventarioRequestDTO movimientoInventarioRequestDTO) {
+        Usuario usuario = authService.obtenerUsuarioAutenticado();
+        Producto producto = productoRepository.findById(movimientoInventarioRequestDTO.productoID()).orElseThrow(()-> new EntityNotFoundException("Ese producto no existe para registrar"));
+        BodegaResponseDTO bodegaProducto = bodegaMapper.entidadADTO(bodegaRepository.findById(producto.getBodega().getId()).orElseThrow());
+        Bodega bodegaOrigen = movimientoInventarioRequestDTO.bodegaOrigenID() != null ? bodegaRepository.findById(movimientoInventarioRequestDTO.bodegaOrigenID()).orElseThrow(()-> new EntityNotFoundException("Esa bodega no existe para registrar")) : null;
+        Bodega bodegaDestino = movimientoInventarioRequestDTO.bodegaDestinoID() != null ? bodegaRepository.findById(movimientoInventarioRequestDTO.bodegaDestinoID()).orElseThrow(()-> new EntityNotFoundException("Esa bodega no existe para registrar")) : null;
+        MovimientoInventario movimientoInventario = movimientoInventarioMapper.DTOAEntidad(movimientoInventarioRequestDTO, usuario,producto,bodegaOrigen,bodegaDestino);
+        return movimientoInventarioMapper.entidadADTO(movimientoInventarioRepository.save(movimientoInventario),usuarioMapper.entidadADTO(usuario),productoMapper.entidadADTO(producto,bodegaProducto),bodegaMapper.entidadADTO(bodegaOrigen),bodegaMapper.entidadADTO(bodegaDestino));
+    }
+
 }
