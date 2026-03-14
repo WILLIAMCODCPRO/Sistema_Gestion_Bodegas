@@ -26,6 +26,7 @@ public class MovimientoInventario {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "tipo_movimiento")
     private TipoMovimiento tipoMovimiento;
 

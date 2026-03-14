@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovimientoInventarioMapper {
     public MovimientoInventarioResponseDTO entidadADTO(MovimientoInventario movimientoInventario, UsuarioResponseDTO usuarioResponseDTO, ProductoResponseDTO productoResponseDTO, BodegaResponseDTO bodegaResponseDTO, BodegaResponseDTO bodegaResponseDTO2){
-        if (movimientoInventario == null || usuarioResponseDTO == null || productoResponseDTO == null || bodegaResponseDTO == null ||bodegaResponseDTO2 == null) return null;
+        if (movimientoInventario == null || usuarioResponseDTO == null || productoResponseDTO == null) return null;
         return new MovimientoInventarioResponseDTO(
                 movimientoInventario.getId(),
                 movimientoInventario.getFecha(),
