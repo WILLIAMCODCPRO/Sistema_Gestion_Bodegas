@@ -77,4 +77,15 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
         return movimientoInventarioMapper.entidadADTO(movimientoInventarioRepository.save(movimientoInventario),usuarioMapper.entidadADTO(usuario),productoMapper.entidadADTO(producto,bodegaProducto),bodegaMapper.entidadADTO(bodegaOrigen),bodegaMapper.entidadADTO(bodegaDestino));
     }
 
+    @Override
+    public MovimientoInventarioResponseDTO buscarMovimientoID(Long id) {
+        MovimientoInventario movimientoInventario = movimientoInventarioRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("No existe ese movimiento"));
+        Usuario usuario = usuarioRepository.findById(movimientoInventario.getUsuario().getId()).orElseThrow();
+        Producto producto = productoRepository.findById(movimientoInventario.getProducto().getId()).orElseThrow();
+        BodegaResponseDTO bodegaProducto = bodegaMapper.entidadADTO(bodegaRepository.findById(producto.getBodega().getId()).orElseThrow());
+        Bodega bodegaOrigen = movimientoInventario.getBodegaOrigen() != null ? bodegaRepository.findById(movimientoInventario.getBodegaOrigen().getId()).orElseThrow() : null;
+        Bodega bodegaDestino = movimientoInventario.getBodegaDestino() != null ? bodegaRepository.findById(movimientoInventario.getBodegaDestino().getId()).orElseThrow() : null;
+        return movimientoInventarioMapper.entidadADTO(movimientoInventario,usuarioMapper.entidadADTO(usuario),productoMapper.entidadADTO(producto,bodegaProducto),bodegaMapper.entidadADTO(bodegaOrigen), bodegaMapper.entidadADTO(bodegaDestino));
+    }
+
 }

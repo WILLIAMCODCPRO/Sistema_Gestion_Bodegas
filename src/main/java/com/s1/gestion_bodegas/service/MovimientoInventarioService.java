@@ -9,4 +9,6 @@ public interface MovimientoInventarioService {
     List<MovimientoInventarioResponseDTO> listarMovimientos();
 
     MovimientoInventarioResponseDTO registrarMovimiento(MovimientoInventarioRequestDTO movimientoInventarioRequestDTO);
+
+    MovimientoInventarioResponseDTO buscarMovimientoID(Long id);
 }

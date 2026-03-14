@@ -27,4 +27,9 @@ public class MovimientoInventarioController {
     public ResponseEntity<MovimientoInventarioResponseDTO> registrarMovimiento(@RequestBody MovimientoInventarioRequestDTO movimientoInventarioRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(movimientoInventarioServiceimpl.registrarMovimiento(movimientoInventarioRequestDTO));
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<MovimientoInventarioResponseDTO> buscarMovimientoID(@PathVariable Long id){
+        return ResponseEntity.ok().body(movimientoInventarioServiceimpl.buscarMovimientoID(id));
+    }
 }
