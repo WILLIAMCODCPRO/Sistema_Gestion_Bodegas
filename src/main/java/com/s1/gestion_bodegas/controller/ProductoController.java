@@ -3,6 +3,7 @@ package com.s1.gestion_bodegas.controller;
 import com.s1.gestion_bodegas.dto.request.ProductoRequestDTO;
 import com.s1.gestion_bodegas.dto.response.ProductoResponseDTO;
 import com.s1.gestion_bodegas.service.impl.ProductoServiceimpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductoResponseDTO>registrarProducto(@RequestBody ProductoRequestDTO productoRequestDTO){
+    public ResponseEntity<ProductoResponseDTO>registrarProducto(@RequestBody @Valid ProductoRequestDTO productoRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(productoServiceimpl.registrarProducto(productoRequestDTO));
     }
 
@@ -34,7 +35,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductoResponseDTO>actualizarProducto(@PathVariable Long id, @RequestBody ProductoRequestDTO productoRequestDTO){
+    public ResponseEntity<ProductoResponseDTO>actualizarProducto(@PathVariable Long id, @RequestBody @Valid ProductoRequestDTO productoRequestDTO){
         return ResponseEntity.ok().body(productoServiceimpl.actualizarProducto(productoRequestDTO,id));
     }
 
