@@ -14,7 +14,7 @@ public record AuditoriaResponseDTO(
 
         LocalDateTime fecha,
 
-        Usuario usuario,
+        UsuarioResponseDTO usuario,
 
         String entidad,
 
