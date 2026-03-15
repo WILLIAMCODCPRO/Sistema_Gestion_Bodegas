@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -31,5 +33,10 @@ public class MovimientoInventarioController {
     @GetMapping("{id}")
     public ResponseEntity<MovimientoInventarioResponseDTO> buscarMovimientoID(@PathVariable Long id){
         return ResponseEntity.ok().body(movimientoInventarioServiceimpl.buscarMovimientoID(id));
+    }
+
+    @GetMapping("/{fecha1}/{fecha2}")
+    public  ResponseEntity<List<MovimientoInventarioResponseDTO>> buscarMovimientoRangoFecha(@PathVariable LocalDateTime fecha1, @PathVariable LocalDateTime fecha2){
+        return ResponseEntity.ok().body(movimientoInventarioServiceimpl.listarMovimientoRangoFecha(fecha1,fecha2));
     }
 }

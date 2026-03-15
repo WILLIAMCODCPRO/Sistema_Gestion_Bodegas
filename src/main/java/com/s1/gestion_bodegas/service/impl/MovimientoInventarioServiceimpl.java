@@ -21,6 +21,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -86,6 +88,33 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
         Bodega bodegaOrigen = movimientoInventario.getBodegaOrigen() != null ? bodegaRepository.findById(movimientoInventario.getBodegaOrigen().getId()).orElseThrow() : null;
         Bodega bodegaDestino = movimientoInventario.getBodegaDestino() != null ? bodegaRepository.findById(movimientoInventario.getBodegaDestino().getId()).orElseThrow() : null;
         return movimientoInventarioMapper.entidadADTO(movimientoInventario,usuarioMapper.entidadADTO(usuario),productoMapper.entidadADTO(producto,bodegaProducto),bodegaMapper.entidadADTO(bodegaOrigen), bodegaMapper.entidadADTO(bodegaDestino));
+    }
+
+    @Override
+    public List<MovimientoInventarioResponseDTO> listarMovimientoRangoFecha(LocalDateTime fecha1, LocalDateTime fecha2) {
+        return movimientoInventarioRepository.findByFechaBetween(fecha1,fecha2)
+                .stream()
+                .map(dato -> movimientoInventarioMapper.entidadADTO(
+                        dato,
+                        usuarioMapper.entidadADTO(
+                                usuarioRepository.findById(dato.getUsuario().getId())
+                                        .orElseThrow()
+                        ),
+                        productoServiceImpl.buscarProductoID(dato.getProducto().getId()),
+                        dato.getBodegaOrigen() != null
+                                ? bodegaMapper.entidadADTO(
+                                bodegaRepository.findById(dato.getBodegaOrigen().getId())
+                                        .orElseThrow()
+                        )
+                                : null,
+                        dato.getBodegaDestino() != null
+                                ? bodegaMapper.entidadADTO(
+                                bodegaRepository.findById(dato.getBodegaDestino().getId())
+                                        .orElseThrow()
+                        )
+                                : null
+                ))
+                .toList();
     }
 
 }
