@@ -46,6 +46,6 @@ public class MovimientoInventario {
     private Bodega bodegaOrigen;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = " id_bodega_destino")
+    @JoinColumn(name = "id_bodega_destino")
     private Bodega bodegaDestino;
 }
