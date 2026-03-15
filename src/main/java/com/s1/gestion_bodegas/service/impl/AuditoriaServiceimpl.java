@@ -3,10 +3,12 @@ package com.s1.gestion_bodegas.service.impl;
 import com.s1.gestion_bodegas.dto.response.AuditoriaResponseDTO;
 import com.s1.gestion_bodegas.mapper.AuditoriaMapper;
 import com.s1.gestion_bodegas.mapper.UsuarioMapper;
+import com.s1.gestion_bodegas.model.Auditoria;
+import com.s1.gestion_bodegas.model.Usuario;
 import com.s1.gestion_bodegas.repository.AuditoriaRepository;
 import com.s1.gestion_bodegas.repository.UsuarioRepository;
 import com.s1.gestion_bodegas.service.AuditoriaService;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,12 @@ public class AuditoriaServiceimpl implements AuditoriaService {
         return auditoriaRepository.findAll()
                 .stream()
                 .map(dato -> auditoriaMapper.entidadADTO(dato,usuarioMapper.entidadADTO(usuarioRepository.findById(dato.getUsuario().getId()).orElseThrow()))).toList();
+    }
+
+    @Override
+    public AuditoriaResponseDTO listarAuditoriaID(Long id) {
+        Auditoria auditoria = auditoriaRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicha auditoria"));
+        Usuario usuario = usuarioRepository.findById(auditoria.getUsuario().getId()).orElseThrow();
+        return auditoriaMapper.entidadADTO(auditoria, usuarioMapper.entidadADTO(usuario));
     }
 }

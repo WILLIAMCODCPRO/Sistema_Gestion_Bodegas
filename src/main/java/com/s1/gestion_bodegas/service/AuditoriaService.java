@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface AuditoriaService {
     List<AuditoriaResponseDTO> listarAuditorias();
+
+    AuditoriaResponseDTO listarAuditoriaID(Long id);
+
+    List<AuditoriaResponseDTO> auditoriaUsuario(Long idUsuario);
 }
