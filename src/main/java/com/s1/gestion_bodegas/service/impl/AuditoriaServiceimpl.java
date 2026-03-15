@@ -35,4 +35,12 @@ public class AuditoriaServiceimpl implements AuditoriaService {
         Usuario usuario = usuarioRepository.findById(auditoria.getUsuario().getId()).orElseThrow();
         return auditoriaMapper.entidadADTO(auditoria, usuarioMapper.entidadADTO(usuario));
     }
+
+    @Override
+    public List<AuditoriaResponseDTO> auditoriaUsuario(Long usuarioID) {
+        Usuario usuario = usuarioRepository.findById(usuarioID).orElseThrow(()->new EntityNotFoundException("No existe dicho usuario no s epuede filtar"));
+        return auditoriaRepository.findByUsuario(usuario)
+                .stream()
+                .map(dato -> auditoriaMapper.entidadADTO(dato,usuarioMapper.entidadADTO(usuarioRepository.findById(dato.getUsuario().getId()).orElseThrow()))).toList();
+    }
 }

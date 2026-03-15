@@ -29,4 +29,9 @@ public class AuditoriaController {
     public ResponseEntity<AuditoriaResponseDTO> buscarAuditoriaID(@PathVariable Long id){
         return ResponseEntity.ok().body(auditoriaServiceimpl.listarAuditoriaID(id));
     }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<AuditoriaResponseDTO>> listarAuditoriaUsuario(@PathVariable Long idUsuario){
+        return ResponseEntity.ok().body(auditoriaServiceimpl.auditoriaUsuario(idUsuario));
+    }
 }
