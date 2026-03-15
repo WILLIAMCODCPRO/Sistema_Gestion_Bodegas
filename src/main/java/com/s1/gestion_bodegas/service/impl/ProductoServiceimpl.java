@@ -67,4 +67,20 @@ public class ProductoServiceimpl implements ProductoService {
         Producto producto = productoRepository.findById(id).orElseThrow(()->new EntityNotFoundException("No existe dicho producto"));
         productoRepository.delete(producto);
     }
+
+    @Override
+    public List<ProductoResponseDTO> productosStockBajo() {
+        return productoRepository
+                .findByStockProductoLessThan(10)
+                .stream()
+                .map(dato -> productoMapper.entidadADTO(
+                        dato,
+                        bodegaMapper.entidadADTO(
+                                bodegaRepository
+                                        .findById(dato.getBodega().getId())
+                                        .orElseThrow()
+                        )
+                ))
+                .toList();
+    }
 }

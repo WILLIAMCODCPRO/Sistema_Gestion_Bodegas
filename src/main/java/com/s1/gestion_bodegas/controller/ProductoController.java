@@ -43,4 +43,9 @@ public class ProductoController {
         productoServiceimpl.eliminarProducto(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/stockbajo")
+    public ResponseEntity<List<ProductoResponseDTO>> listarProductosStockBajo(){
+        return ResponseEntity.ok().body(productoServiceimpl.productosStockBajo());
+    }
 }
