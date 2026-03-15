@@ -52,10 +52,7 @@ CREATE TABLE auditoria (
     fecha DATETIME NOT NULL,
     id_usuario INT NOT NULL,
     entidad VARCHAR(50) NOT NULL,
-    id_fila_modificada INT NOT NULL,
-    columna_modificada VARCHAR(70) NOT NULL,
-    valor_antiguo VARCHAR(200) ,
-    valor_nuevo VARCHAR(200) ,
-
+    valor_antiguo JSON,
+    valor_nuevo JSON,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );

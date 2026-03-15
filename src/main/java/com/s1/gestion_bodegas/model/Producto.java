@@ -1,5 +1,6 @@
 package com.s1.gestion_bodegas.model;
 
+import com.s1.gestion_bodegas.listener.AuditoriaListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "producto")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor //Generar costructor sin palametros y todos lso palametros
+@EntityListeners(AuditoriaListener.class)
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.s1.gestion_bodegas.model;
 
+import com.s1.gestion_bodegas.listener.AuditoriaListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditoriaListener.class)
 public class Bodega {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

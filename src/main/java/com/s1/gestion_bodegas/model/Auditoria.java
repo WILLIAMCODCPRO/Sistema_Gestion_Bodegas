@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,10 +20,12 @@ public class Auditoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private  TipoOperacion tipo_operacion;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "tipo_operacion")
+    private  TipoOperacion tipoOperacion;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column
     private LocalDateTime fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,16 +35,10 @@ public class Auditoria {
     @Column(nullable = false)
     private String entidad;
 
-    @Column(nullable = false)
-    private Integer id_fila_modificada;
+    @Column(name ="valor_antiguo", columnDefinition = "JSON")
+    private String valorAntiguo;
 
-    @Column(nullable = false)
-    private String columna_modificada;
-
-    @Column
-    private String valor_antiguo;
-
-    @Column
-    private String valor_nuevo;
+    @Column (name ="valor_nuevo", columnDefinition = "JSON")
+    private String valorNuevo;
 
 }

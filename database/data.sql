@@ -35,11 +35,14 @@ VALUES
 ('2026-03-11 13:20:00', 2, 'ENTRADA', 7, 6, NULL, 3),
 ('2026-03-11 15:00:00', 4, 'SALIDA', 8, 2, 4, NULL);
 
-INSERT INTO auditoria 
-(tipo_operacion, fecha, id_usuario, entidad, id_fila_modificada, columna_modificada, valor_antiguo, valor_nuevo)
+INSERT INTO auditoria (tipo_operacion, fecha, id_usuario, entidad, valor_antiguo, valor_nuevo)
 VALUES
-('INSERT', '2026-03-10 09:01:00', 1, 'producto', 1, 'stock_producto', NULL, '15'),
-('UPDATE', '2026-03-10 10:05:00', 2, 'producto', 2, 'stock_producto', '50', '45'),
-('UPDATE', '2026-03-10 11:35:00', 3, 'producto', 3, 'stock_producto', '8', '5'),
-('DELETE', '2026-03-11 09:20:00', 2, 'producto', 5, 'stock_producto', '20', NULL),
-('UPDATE', '2026-03-11 10:50:00', 1, 'bodega', 3, 'capacidad', '250', '300');
+('INSERT', NOW(), 1, 'MovimientoInventario', NULL, '{"cantidadProducto": 15, "bodegaDestino": 3, "productoId": 1}'),
+
+('UPDATE', NOW(), 1, 'MovimientoInventario', '{"cantidadProducto": 15, "bodegaDestino": 3}', '{"cantidadProducto": 20, "bodegaDestino": 4}'),
+
+('DELETE', NOW(), 2, 'MovimientoInventario', '{"cantidadProducto": 20, "bodegaDestino": 4}', NULL),
+
+('INSERT', NOW(), 1, 'Producto', NULL, '{"nombre": "Laptop Lenovo", "categoria": "Tecnologia", "precio": 3500000, "stockProducto": 15}'),
+
+('UPDATE', NOW(), 2, 'Producto', '{"nombre": "Laptop Lenovo", "precio": 3500000}', '{"precio": 3600000}');
