@@ -1,5 +1,6 @@
 package com.s1.gestion_bodegas.controller;
 
+import com.s1.gestion_bodegas.dto.response.ProductoMasMovidoResponseDTO;
 import com.s1.gestion_bodegas.dto.response.StockBodegaResponseDTO;
 import com.s1.gestion_bodegas.service.impl.ReporteServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,14 @@ import java.util.List;
 @Validated
 public class ReporteController {
     public final ReporteServiceImpl reporteServiceImpl;
+
     @GetMapping("/bodega/stock")
     public ResponseEntity<List<StockBodegaResponseDTO>> obtenerStockPorBodega() {
         return ResponseEntity.ok(reporteServiceImpl.stockBodega());
+    }
+
+    @GetMapping("/productos/masmovidos")
+    public ResponseEntity<List<ProductoMasMovidoResponseDTO>> obtenerProductosMasMovidos() {
+        return ResponseEntity.ok(reporteServiceImpl.productosMasMovidos());
     }
 }
