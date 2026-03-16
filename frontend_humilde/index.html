@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<h2>Login</h2>
+
+<input type="text" id="username" placeholder="Usuario">
+<input type="password" id="password" placeholder="Contraseña">
+<button type="button" onclick="login()">Login</button>
+
+
+<hr>
+
+
+<h2>Registrar Usuario</h2>
+
+<input type="text" id="regUsername" placeholder="Nombre de usuario">
+
+<input type="password" id="regPassword" placeholder="Contraseña">
+
+<select id="regRol">
+    <option value="">Seleccione Rol</option>
+    <option value="ADMIN">ADMIN</option>
+    <option value="EMPLEADO">EMPLEADO</option>
+</select>
+
+<button onclick="registrarUsuario()">Registrar Usuario</button>
+
+
+<hr>
+
+
+<h2>API Protegida</h2>
+
+<button onclick="getProductos()">Obtener Productos</button>
+<button onclick="getBodegas()">Obtener Bodegas</button>
+<button onclick="getMovimientos()">Obtener Movimientos</button>
+<button onclick="getAuditoria()">Obtener Auditorias</button>
+<button onclick="getUsuario()">Obtener Usuarios</button>
+
+<h2>Consultas</h2>
+
+<button onclick="getStockBajo()">Obtener Productos con Stock Bajo</button>
+
+
+<h3>Buscar movimientos por rango de fecha</h3>
+
+<input type="input" id="fecha1" placeholder="fecha 1">
+<input type="input" id="fecha2" placeholder="fecha 2">
+
+<button onclick="buscarMovimientosPorFecha()">
+    Buscar Movimientos
+</button>
+
+<h3>Auditoría por Usuario</h3>
+
+<input type="number" id="usuarioId" placeholder="ID del Usuario">
+
+<button onclick="buscarAuditoriaUsuario()">
+    Buscar Auditoría
+</button>
+
+<h2>Reportes</h2>
+
+<button onclick="getStockTotalBodega()">Stock Total Por bodega</button>
+<button onclick="getProductosMasMovidos()">Productos Mas Movidos</button>
+
+<hr>
+<hr>
+<hr>
+
+
+<a href="/view/producto.html" class="api-link">Ir a probar la API Producto</a>
+<a href="/view/bodega.html" class="api-link">Ir a probar la API Bodegas</a>
+<a href="/view/movimiento.html" class="api-link">Ir a probar la API Movimientos</a>
+
+
+
+
+<pre id="resultado"></pre>
+
+
+<script src="js/app.js"></script>
+
+
+
+</body>
+</html>

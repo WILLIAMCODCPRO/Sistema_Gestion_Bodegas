@@ -5,6 +5,7 @@ import com.s1.gestion_bodegas.dto.response.ProductoResponseDTO;
 import com.s1.gestion_bodegas.service.impl.ProductoServiceimpl;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,7 +41,7 @@ public class ProductoController {
     @Operation(summary = "Registrar un nuevo producto")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Producto creado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos enviados en la petición")
+            @ApiResponse(responseCode = "400", description = "Datos inválidos enviados en la petición", content = @Content)
     })
     @PostMapping
     public ResponseEntity<ProductoResponseDTO> registrarProducto(
@@ -54,7 +55,7 @@ public class ProductoController {
     @Operation(summary = "Buscar un producto por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Producto encontrado"),
-            @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado", content = @Content)
     })
     @GetMapping("/{id}")
     public ResponseEntity<ProductoResponseDTO> buscarProductoID(@PathVariable Long id){
@@ -64,8 +65,8 @@ public class ProductoController {
     @Operation(summary = "Actualizar un producto existente")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Producto actualizado correctamente"),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
-            @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado", content = @Content)
     })
     @PutMapping("/{id}")
     public ResponseEntity<ProductoResponseDTO> actualizarProducto(
@@ -79,7 +80,7 @@ public class ProductoController {
     @Operation(summary = "Eliminar un producto por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Producto eliminado correctamente"),
-            @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado", content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id){

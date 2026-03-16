@@ -4,6 +4,7 @@ import com.s1.gestion_bodegas.dto.request.BodegaRequestDTO;
 import com.s1.gestion_bodegas.dto.response.BodegaResponseDTO;
 import com.s1.gestion_bodegas.service.impl.BodegaServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +37,7 @@ public class BodegaController {
     @Operation(summary = "Registrar una nueva bodega", description = "Crea una nueva bodega con los datos enviados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Bodega creada exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Datos de la bodega inválidos o mal estructurados")
+            @ApiResponse(responseCode = "400", description = "Datos de la bodega inválidos o mal estructurados", content = @Content)
     })
     @PostMapping
     public ResponseEntity<BodegaResponseDTO> registrarBodega(@RequestBody @Validated BodegaRequestDTO bodegaRequestDTO) {
@@ -56,8 +57,8 @@ public class BodegaController {
     @Operation(summary = "Actualizar una bodega", description = "Actualiza los datos de una bodega existente según su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Bodega actualizada correctamente"),
-            @ApiResponse(responseCode = "400", description = "Datos de la bodega inválidos o mal estructurados"),
-            @ApiResponse(responseCode = "404", description = "No se encontró ninguna bodega con el ID proporcionado")
+            @ApiResponse(responseCode = "400", description = "Datos de la bodega inválidos o mal estructurados", content = @Content),
+            @ApiResponse(responseCode = "404", description = "No se encontró ninguna bodega con el ID proporcionado", content = @Content)
     })
     @PutMapping("/{id}")
     public ResponseEntity<BodegaResponseDTO> actualizarBodega(@PathVariable Long id, @RequestBody @Validated BodegaRequestDTO bodegaRequestDTO) {
@@ -67,7 +68,7 @@ public class BodegaController {
     @Operation(summary = "Eliminar una bodega", description = "Elimina una bodega existente según su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Bodega eliminada correctamente"),
-            @ApiResponse(responseCode = "404", description = "No se encontró ninguna bodega con el ID proporcionado")
+            @ApiResponse(responseCode = "404", description = "No se encontró ninguna bodega con el ID proporcionado", content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarBodega(@PathVariable Long id) {

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas API Producto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        input,
+        button {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Pruebas API Producto</h2>
+
+    <hr>
+
+    <h3>GET por ID</h3>
+    <input type="number" id="getId" placeholder="ID">
+    <button onclick="testGetById()">Consultar</button>
+
+    <hr>
+
+    <h3>Listar todos</h3>
+    <button onclick="testBuscar()">Buscar</button>
+
+    <hr>
+
+    <h3>Crear Producto (POST)</h3>
+    <input type="text" id="postNombre" placeholder="Nombre">
+    <input type="text" id="postCategoria" placeholder="Categoría">
+    <input type="number" id="postPrecio" placeholder="Precio">
+    <input type="number" id="postStock" placeholder="Stock">
+    <input type="number" id="postBodega" placeholder="ID Bodega">
+    <button onclick="testPost()">Crear</button>
+
+    <hr>
+
+    <h3>Actualizar Producto (PUT)</h3>
+    <input type="number" id="putId" placeholder="ID">
+    <input type="text" id="putNombre" placeholder="Nuevo Nombre">
+    <input type="text" id="putCategoria" placeholder="Nueva Categoría">
+    <input type="number" id="putPrecio" placeholder="Nuevo Precio">
+    <input type="number" id="putStock" placeholder="Nuevo Stock">
+    <input type="number" id="putBodega" placeholder="ID Bodega">
+    <button onclick="testPut()">Actualizar</button>
+
+    <hr>
+
+    <h3>Eliminar Producto (DELETE)</h3>
+    <input type="number" id="deleteId" placeholder="ID">
+    <button onclick="testDelete()">Eliminar</button>
+
+    <hr>
+
+    <pre id="resultado"></pre>
+
+    <script src="producto.js"></script>
+    <script>
+        // Mostrar resultados o errores de backend
+        function mostrar(data) {
+
+            // error de validación del backend
+            if (data && data.errorCode === "VALIDATION_FAILED" && data.errors) {
+
+                let errores = "ERRORES DE VALIDACIÓN\n\n";
+
+                for (const campo in data.errors) {
+                    errores += campo + ": " + data.errors[campo] + "\n";
+                }
+
+                document.getElementById("resultado").textContent = errores;
+                return;
+            }
+
+            // otros errores
+            if (data instanceof Error) {
+                document.getElementById("resultado").textContent = "Error: " + data.message;
+                return;
+            }
+
+            // mostrar respuesta normal
+            document.getElementById("resultado").textContent = JSON.stringify(data, null, 2);
+        }
+
+        function testGetById() {
+            const id = document.getElementById("getId").value;
+            getById(id)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testBuscar() {
+            listar()
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testPost() {
+            const nombre = document.getElementById("postNombre").value;
+            const categoria = document.getElementById("postCategoria").value;
+            const precio = document.getElementById("postPrecio").value;
+            const stock = document.getElementById("postStock").value;
+            const bodegaId = document.getElementById("postBodega").value;
+
+            crear(nombre, categoria, precio, stock, bodegaId)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testPut() {
+            const id = document.getElementById("putId").value;
+            const nombre = document.getElementById("putNombre").value;
+            const categoria = document.getElementById("putCategoria").value;
+            const precio = document.getElementById("putPrecio").value;
+            const stock = document.getElementById("putStock").value;
+            const bodegaId = document.getElementById("putBodega").value;
+
+            actualizarPersonalizada(id, nombre, categoria, precio, stock, bodegaId)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testDelete() {
+            const id = document.getElementById("deleteId").value;
+            eliminar(id)
+                .then(() => mostrar({ mensaje: "Producto eliminado correctamente" }))
+                .catch(error => mostrar(error));
+        }
+    </script>
+
+</body>
+
+</html>

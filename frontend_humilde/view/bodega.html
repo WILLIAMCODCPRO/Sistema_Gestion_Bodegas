@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas API Bodega</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        input,
+        button {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Pruebas API Bodega</h2>
+
+    <hr>
+
+    <h3>GET por ID</h3>
+    <input type="number" id="getId" placeholder="ID">
+    <button onclick="testGetById()">Consultar</button>
+
+    <hr>
+
+    <h3>Listar todas las bodegas</h3>
+    <button onclick="testBuscar()">Buscar</button>
+
+    <hr>
+
+    <h3>Crear Bodega (POST)</h3>
+    <input type="text" id="postNombre" placeholder="Nombre">
+    <input type="text" id="postUbicacion" placeholder="Ubicación">
+    <input type="number" id="postCapacidad" placeholder="Capacidad">
+    <input type="text" id="postEncargado" placeholder="Encargado">
+    <button onclick="testPost()">Crear</button>
+
+    <hr>
+
+    <h3>Actualizar Bodega (PUT)</h3>
+    <input type="number" id="putId" placeholder="ID">
+    <input type="text" id="putNombre" placeholder="Nuevo Nombre">
+    <input type="text" id="putUbicacion" placeholder="Nueva Ubicación">
+    <input type="number" id="putCapacidad" placeholder="Nueva Capacidad">
+    <input type="text" id="putEncargado" placeholder="Nuevo Encargado">
+    <button onclick="testPut()">Actualizar</button>
+
+    <hr>
+
+    <h3>Eliminar Bodega (DELETE)</h3>
+    <input type="number" id="deleteId" placeholder="ID">
+    <button onclick="testDelete()">Eliminar</button>
+
+    <hr>
+
+    <pre id="resultado"></pre>
+
+    <script src="bodega.js"></script>
+    <script>
+        // Mostrar resultados o errores en el pre
+        function mostrar(data) {
+            if (data instanceof Error) {
+                document.getElementById("resultado").textContent = `❌ Error:\n${data.message}`;
+            } else {
+                document.getElementById("resultado").textContent = JSON.stringify(data, null, 2);
+            }
+        }
+
+        function testGetById() {
+            const id = document.getElementById("getId").value;
+            getBodegaById(id)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testBuscar() {
+            listarBodegas()
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testPost() {
+            const nombre = document.getElementById("postNombre").value;
+            const ubicacion = document.getElementById("postUbicacion").value;
+            const capacidad = document.getElementById("postCapacidad").value;
+            const encargado = document.getElementById("postEncargado").value;
+
+            crearBodega(nombre, ubicacion, capacidad, encargado)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testPut() {
+            const id = document.getElementById("putId").value;
+            const nombre = document.getElementById("putNombre").value;
+            const ubicacion = document.getElementById("putUbicacion").value;
+            const capacidad = document.getElementById("putCapacidad").value;
+            const encargado = document.getElementById("putEncargado").value;
+
+            actualizarBodega(id, nombre, ubicacion, capacidad, encargado)
+                .then(data => mostrar(data))
+                .catch(error => mostrar(error));
+        }
+
+        function testDelete() {
+            const id = document.getElementById("deleteId").value;
+            eliminarBodega(id)
+                .then(() => mostrar({ mensaje: "Bodega eliminada correctamente" }))
+                .catch(error => mostrar(error));
+        }
+    </script>
+
+</body>
+
+</html>

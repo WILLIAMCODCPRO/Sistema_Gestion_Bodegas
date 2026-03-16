@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test De Apis</title>
+    <link rel="stylesheet" href="styless2.css">
+</head>
+
+<body>
+
+    <h2>Pruebas API Detalle ventas</h2>
+
+    <hr>
+
+    <h3>GET por ID</h3>
+    <input type="number" id="getId" placeholder="ID">
+    <button onclick="testGetById()">Consultar</button>
+
+    <hr>
+
+    <h3>Listar todos</h3>
+    <button onclick="testBuscar()">Buscar</button>
+
+    <hr>
+
+    <h3>Crear DetalleVenta (POST)</h3>
+    <input type="number" id="postProductoId" placeholder="ProductoId">
+    <input type="number" id="postVentaId" placeholder="VentaId">
+    <input type="text" id="postCantidad" placeholder="Cantidad">
+    <input type="text" id="postSubTotal" placeholder="Subtotal">
+    <button onclick="testPost()">Crear</button>
+
+    <hr>
+
+    <h3>Actualizar Detalle Venta (PUT)</h3>
+    <input type="number" id="putId" placeholder="ID">
+    <input type="text" id="putProductoId" placeholder="ProductoId">
+    <input type="text" id="putVentaId" placeholder="VentaId">
+    <input type="text" id="putCantidad" placeholder="Cantidad">
+    <input type="text" id="putSubTotal" placeholder="Subtotal">
+    <button onclick="testPut()">Actualizar</button>
+
+    <hr>
+
+    <h3>Eliminar Detalle Venta (DELETE)</h3>
+    <input type="number" id="deleteId" placeholder="ID">
+    <button onclick="testDelete()">Eliminar</button>
+
+    <hr>
+
+    <pre id="resultado"></pre>
+
+    <script src="detalle.js"></script>
+
+    <script>
+
+        function testGetById() {
+            const id = document.getElementById("getId").value;
+
+            getById(id)
+                .then(data => mostrar(data))
+                .catch(error => alert(error));
+        }
+
+        function testBuscar() {
+            listar()
+                .then(data => mostrar(data))
+                .catch(error => alert(error));
+        }
+
+        function testPost() {
+            const producto = document.getElementById("postProductoId").value;
+            const venta = document.getElementById("postVentaId").value;
+            const cantidad = document.getElementById("postCantidad").value;
+            const subtotal = document.getElementById("postSubTotal").value;
+
+
+            crear(producto,venta,cantidad,subtotal)
+                .then(data => mostrar(data))
+                .catch(error => alert(error));
+        }
+
+        function testPut() {
+            const id = document.getElementById("putId").value;
+            const producto = document.getElementById("putProductoId").value;
+            const venta = document.getElementById("putVentaId").value;
+            const cantidad = document.getElementById("putCantidad").value;
+            const subtotal = document.getElementById("putSubTotal").value;
+
+            actualizarPersonalizada(id,producto, venta, cantidad, subtotal)
+                .then(data => mostrar(data))
+                .catch(error => alert(error));
+        }
+
+        function testDelete() {
+            const id = document.getElementById("deleteId").value;
+
+            eliminar(id)
+                .then(() => mostrar("Eliminado correctamente"))
+                .catch(error => alert(error));
+        }
+
+        function mostrar(data) {
+            document.getElementById("resultado").textContent =
+                JSON.stringify(data, null, 2);
+        }
+    </script>
+
+    
+
+</body>
+
+</html>

@@ -40,7 +40,7 @@ public class MovimientoInventarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Movimiento registrado correctamente",
                     content = @Content(schema = @Schema(implementation = MovimientoInventarioResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos o mal estructurados", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Datos inválidos o mal estructurados", content = @Content )
     })
     @PostMapping
     public ResponseEntity<MovimientoInventarioResponseDTO> registrarMovimiento(
