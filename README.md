@@ -164,7 +164,87 @@ Reporte general de stock por bodega: GET /api/reporte/bodega/stock
 productos más movidos: GET /api/reporte/productos/masmovidos
 ```
 #Capturas Swagger
+
 <img width="1816" height="563" alt="imagen" src="https://github.com/user-attachments/assets/ef81d7d4-7da7-495f-8009-b81f251b7c53" />
+
 <img width="1851" height="581" alt="imagen" src="https://github.com/user-attachments/assets/13651fb7-bdfd-4783-a807-9cd7c5fa2d22" />
+
+#Diagrama De Clases
+
+#Descripcion Arquitectura
+
+#Ejemplo de token JWT y uso.
+
+```bash
+public class JwtService {
+
+    private final String SECRET = "clave_supersecreta";
+
+    private final long EXPIRATION = 1000 * 60 * 30; // 30 minutos
+
+
+    private Key getKey() {
+        return Keys.hmacShaKeyFor(SECRET.getBytes());
+    }
+
+
+    public String generateToken(String username) {
+
+        return Jwts.builder()
+
+                .setSubject(username)
+
+
+                .setIssuedAt(new Date())
+
+
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+
+
+                .signWith(getKey(), SignatureAlgorithm.HS256)
+
+                .compact();
+    }
+
+
+    public String validateToken(String token) {
+
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+
+
+                    .parseClaimsJws(token)
+
+
+                    .getBody()
+
+
+                    .getSubject();
+        } catch (Exception e) {
+
+
+
+            return null;
+        }
+    }
+}
+
+public LoginResponse login(LoginRequest request){
+
+        Usuario usuario = usuarioRepository
+                .findByNombreUsuario(request.nombreUsuario())
+                .orElseThrow(() -> new BusinessRuleException("Usuario no encontrado"));
+
+        if(!usuario.getPassword().equals(request.password())){
+            throw new BusinessRuleException("Credenciales inválidas");
+        }
+
+        String token = jwtService.generateToken(usuario.getNombreUsuario());
+
+        return new LoginResponse(token);
+    }
+```
 
 
