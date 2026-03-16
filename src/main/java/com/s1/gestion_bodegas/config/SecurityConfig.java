@@ -40,6 +40,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/auth/login").permitAll()
 
+                        .requestMatchers("/auth/register").permitAll()
+
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers("/swagger-ui/**",

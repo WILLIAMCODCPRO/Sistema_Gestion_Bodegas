@@ -1,7 +1,9 @@
 package com.s1.gestion_bodegas.auth;
 
 import com.s1.gestion_bodegas.config.JwtService;
+import com.s1.gestion_bodegas.dto.request.UsuarioRequestDTO;
 import com.s1.gestion_bodegas.exception.BusinessRuleException;
+import com.s1.gestion_bodegas.mapper.UsuarioMapper;
 import com.s1.gestion_bodegas.model.Usuario;
 import com.s1.gestion_bodegas.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthService {
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioMapper usuarioMapper;
     private final JwtService jwtService;
 
     public LoginResponse login(LoginRequest request){
@@ -39,6 +42,11 @@ public class AuthService {
 
         return usuarioRepository.findByNombreUsuario(nombreUsuario)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+    }
+
+    public void registrarUsuario(UsuarioRequestDTO usuarioRequestDTO) {
+        Usuario  usuario = usuarioMapper.DTOAEntidad(usuarioRequestDTO);
+        usuarioRepository.save(usuario);
     }
 
 
