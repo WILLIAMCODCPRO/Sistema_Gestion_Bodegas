@@ -89,6 +89,73 @@ Desarrollar un sistema de gestión y auditoría de bodegas que permita registrar
 1. **Clonar el repositorio:**
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/WILLIAMCODCPRO/Sistema_Gestion_Bodegas.git
 cd logitrack
+```
 
+2. **Configurar la base de datos:**
+3. Crear una base de datos llamada logitrack_db.
+4. Editar src/main/resources/application.properties:
+
+```bash
+spring.datasource.url=jdbc:mysql://localhost:3306/logitrack_db
+spring.datasource.username=TU_USUARIO
+spring.datasource.password=TU_CONTRASEÑA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+5. Construir el proyecto:
+
+```bash
+mvn clean install
+```
+
+6. Ejecutar la aplicación:
+
+```bash
+mvn spring-boot:run
+```
+
+Endpoints Principales
+
+Gestión de bodegas: /bodegas
+
+Gestión de productos: /productos
+
+Movimientos de inventario: /movimientos
+
+Auditoría de cambios: /auditorias
+
+Autenticación: /auth/login y /auth/register
+
+Autenticación JWT
+
+Registrar usuario:
+
+POST /auth/register
+{
+  "nombreUsuario": "admin",
+  "password": "12345",
+  "rol": "ADMIN"
+}
+
+Iniciar sesión y obtener token:
+
+POST /auth/login
+{
+  "nombreUsuario": "admin",
+  "password": "12345"
+}
+
+Usar token en headers:
+
+Authorization: Bearer <TOKEN>
+Consultas y Reportes
+
+Productos con stock bajo: GET /productos/stock/bajo
+
+Movimientos por rango de fechas: GET /movimientos?fechaInicio=YYYY-MM-DD&fechaFin=YYYY-MM-DD
+
+Auditorías por usuario o tipo de operación: GET /auditorias?usuario=ID&tipoOperacion=INSERT
+
+Reporte general de stock por bodega: GET /reportes/resumen
