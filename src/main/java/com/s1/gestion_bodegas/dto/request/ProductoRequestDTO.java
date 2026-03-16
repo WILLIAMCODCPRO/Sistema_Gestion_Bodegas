@@ -17,13 +17,13 @@ public record ProductoRequestDTO(
         String categoria,
 
         @Schema(description = "Precio del producto", example = "99.99")
+        @Positive(message = "El precio no puede ser negativo")
         @NotNull(message = "El precio no puede ser nulo")
-        @DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
         BigDecimal precio,
 
         @Schema(description = "Stock disponible", example = "100")
         @NotNull(message = "El stock no puede ser nulo")
-        @PositiveOrZero(message = "El stock no puede ser negativo")
+        @Positive(message = "El stock no puede ser negativo")
         Integer stockProducto,
 
         @Schema(description = "ID de la bodega", example = "1")

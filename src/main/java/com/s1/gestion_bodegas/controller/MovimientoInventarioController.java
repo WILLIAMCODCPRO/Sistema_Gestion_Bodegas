@@ -26,7 +26,7 @@ public class MovimientoInventarioController {
     }
 
     @PostMapping
-    public ResponseEntity<MovimientoInventarioResponseDTO> registrarMovimiento(@RequestBody MovimientoInventarioRequestDTO movimientoInventarioRequestDTO){
+    public ResponseEntity<MovimientoInventarioResponseDTO> registrarMovimiento(@RequestBody @Validated MovimientoInventarioRequestDTO movimientoInventarioRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(movimientoInventarioServiceimpl.registrarMovimiento(movimientoInventarioRequestDTO));
     }
 

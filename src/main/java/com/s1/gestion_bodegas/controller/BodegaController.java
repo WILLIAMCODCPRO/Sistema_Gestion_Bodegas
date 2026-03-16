@@ -24,17 +24,17 @@ public class BodegaController {
     }
 
     @PostMapping
-    public ResponseEntity<BodegaResponseDTO>registrarBodega(@RequestBody BodegaRequestDTO bodegaRequestDTO){
+    public ResponseEntity<BodegaResponseDTO>registrarBodega(@RequestBody @Validated BodegaRequestDTO bodegaRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(bodegaService.registrarBodega(bodegaRequestDTO));
     }
 
     @GetMapping("/{id}")
-    public  ResponseEntity<BodegaResponseDTO>buscarBodegaID(@PathVariable Long id){
+    public  ResponseEntity<BodegaResponseDTO>buscarBodegaID(@PathVariable  Long id){
         return ResponseEntity.ok().body(bodegaService.buscarBodegaID(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BodegaResponseDTO>actualizarBodega(@PathVariable Long id, @RequestBody BodegaRequestDTO bodegaRequestDTO){
+    public ResponseEntity<BodegaResponseDTO>actualizarBodega(@PathVariable Long id, @RequestBody @Validated BodegaRequestDTO bodegaRequestDTO){
         return ResponseEntity.ok().body(bodegaService.actualizarBodega(bodegaRequestDTO,id));
     }
 
