@@ -11,8 +11,8 @@ public class OpenApiCofig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API DOCUMENTADA DE CAMPUSLANDS CON PRODUCTOS Y VENTAS")
+                        .title("Documentacion Apis Sistema de gestión de bodegas LogiTrack")
                         .version("1.0.3")
-                        .description("Esta API, se construyó para el proyecto de springboot"));
+                        .description("Esta API, se construyó para bodegas LogiTrack"));
     }
 }

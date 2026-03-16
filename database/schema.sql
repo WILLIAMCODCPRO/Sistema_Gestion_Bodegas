@@ -1,6 +1,6 @@
-create database LogiTrack;
+create database LogiTrack_William;
 
-use LogiTrack;
+use LogiTrack_William;
 
 CREATE TABLE bodega (
     id INT AUTO_INCREMENT PRIMARY KEY,

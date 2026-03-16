@@ -84,21 +84,21 @@ public class AuditoriaListener {
     }
 
 
-//   @PostUpdate
-//    public void preUpdate(Object entidad){
-//        ObjectMapper mapper = new ObjectMapper();
-//        Auditoria auditoria = new Auditoria();
-//        auditoria.setTipoOperacion(TipoOperacion.UPDATE);
-//        auditoria.setUsuario(authService.obtenerUsuarioAutenticado());
-//        auditoria.setEntidad(entidad.getClass().getSimpleName());
-//        try {
-//            auditoria.setValorNuevo(mapper.writeValueAsString(entidad));
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        auditoria.setValorAntiguo(null);
-//        auditoriaRepository.save(auditoria);
-//    }
+
+    public void preUpdate(Object entidad){
+        ObjectMapper mapper = new ObjectMapper();
+        Auditoria auditoria = new Auditoria();
+        auditoria.setTipoOperacion(TipoOperacion.UPDATE);
+        auditoria.setUsuario(authService.obtenerUsuarioAutenticado());
+        auditoria.setEntidad(entidad.getClass().getSimpleName());
+        try {
+            auditoria.setValorNuevo(mapper.writeValueAsString(entidad));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        auditoria.setValorAntiguo(null);
+        auditoriaRepository.save(auditoria);
+    }
 
     @PreRemove
     public void preRemove(Object entidad){
