@@ -85,7 +85,4 @@ Desarrollar un sistema de gestión y auditoría de bodegas que permita registrar
 
 ---
 
-## Instalación y Ejecución
-1. Clonar el repositorio:
-```bash
-git clone https://github.com/usuario/logitrack-backend.git
+
