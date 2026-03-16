@@ -116,15 +116,16 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-Endpoints Principales
+# Endpoints Principales
 
-Gestión de bodegas: /bodegas
+```bash
+Gestión de bodegas: /api/bodega
 
-Gestión de productos: /productos
+Gestión de productos: /api/producto
 
-Movimientos de inventario: /movimientos
+Movimientos de inventario: /api/movimientos
 
-Auditoría de cambios: /auditorias
+Auditoría de cambios: /api/auditoria
 
 Autenticación: /auth/login y /auth/register
 
@@ -152,10 +153,14 @@ Usar token en headers:
 Authorization: Bearer <TOKEN>
 Consultas y Reportes
 
-Productos con stock bajo: GET /productos/stock/bajo
+Productos con stock bajo: GET /productos/stockbajo
 
-Movimientos por rango de fechas: GET /movimientos?fechaInicio=YYYY-MM-DD&fechaFin=YYYY-MM-DD
+Movimientos por rango de fechas: GET /movimientos/fecha1/feca2
 
-Auditorías por usuario o tipo de operación: GET /auditorias?usuario=ID&tipoOperacion=INSERT
+Auditorías por usuario : GET /auditoria/idusuario
 
-Reporte general de stock por bodega: GET /reportes/resumen
+Reporte general de stock por bodega: GET /api/reporte/bodega/stock
+
+productos más movidos: GET /api/reporte/productos/masmovidos
+```
+
