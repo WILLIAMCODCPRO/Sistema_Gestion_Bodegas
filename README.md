@@ -163,4 +163,8 @@ Reporte general de stock por bodega: GET /api/reporte/bodega/stock
 
 productos más movidos: GET /api/reporte/productos/masmovidos
 ```
+#Capturas Swagger
+<img width="1816" height="563" alt="imagen" src="https://github.com/user-attachments/assets/ef81d7d4-7da7-495f-8009-b81f251b7c53" />
+<img width="1851" height="581" alt="imagen" src="https://github.com/user-attachments/assets/13651fb7-bdfd-4783-a807-9cd7c5fa2d22" />
+
 
