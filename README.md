@@ -80,7 +80,7 @@ Desarrollar un sistema de gestión y auditoría de bodegas que permita registrar
 - **Spring Boot**
 - **Spring Security + JWT**
 - **JPA / Hibernate**
-- **H2 / PostgreSQL**
+- **MySQL JDBC**
 - **Swagger / OpenAPI** para documentación de endpoints
 
 ---
