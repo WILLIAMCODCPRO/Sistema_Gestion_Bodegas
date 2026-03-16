@@ -84,5 +84,11 @@ Desarrollar un sistema de gestión y auditoría de bodegas que permita registrar
 - **Swagger / OpenAPI** para documentación de endpoints
 
 ---
+## Instalación
 
+1. **Clonar el repositorio:**
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd logitrack
 
