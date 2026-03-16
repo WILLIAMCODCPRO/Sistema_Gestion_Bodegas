@@ -3,12 +3,16 @@ package com.s1.gestion_bodegas.controller;
 import com.s1.gestion_bodegas.dto.response.ProductoMasMovidoResponseDTO;
 import com.s1.gestion_bodegas.dto.response.StockBodegaResponseDTO;
 import com.s1.gestion_bodegas.service.impl.ReporteServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,14 +20,26 @@ import java.util.List;
 @RequestMapping("/api/reporte")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Reportes", description = "Operaciones relacionadas con reportes de inventario y productos")
 public class ReporteController {
-    public final ReporteServiceImpl reporteServiceImpl;
 
+    private final ReporteServiceImpl reporteServiceImpl;
+
+    @Operation(summary = "Stock por bodega", description = "Obtiene el stock disponible de productos agrupado por cada bodega")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Stock por bodega obtenido correctamente",
+                    content = @Content(schema = @Schema(implementation = StockBodegaResponseDTO.class)))
+    })
     @GetMapping("/bodega/stock")
     public ResponseEntity<List<StockBodegaResponseDTO>> obtenerStockPorBodega() {
         return ResponseEntity.ok(reporteServiceImpl.stockBodega());
     }
 
+    @Operation(summary = "Productos más movidos", description = "Obtiene la lista de productos con mayor movimiento en el inventario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Productos más movidos obtenidos correctamente",
+                    content = @Content(schema = @Schema(implementation = ProductoMasMovidoResponseDTO.class)))
+    })
     @GetMapping("/productos/masmovidos")
     public ResponseEntity<List<ProductoMasMovidoResponseDTO>> obtenerProductosMasMovidos() {
         return ResponseEntity.ok(reporteServiceImpl.productosMasMovidos());

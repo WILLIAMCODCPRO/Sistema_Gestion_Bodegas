@@ -1,31 +1,34 @@
 package com.s1.gestion_bodegas.dto.response;
 
-import com.s1.gestion_bodegas.model.Bodega;
-import com.s1.gestion_bodegas.model.Producto;
 import com.s1.gestion_bodegas.model.TipoMovimiento;
-import com.s1.gestion_bodegas.model.Usuario;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 
 public record MovimientoInventarioResponseDTO(
-       Long id,
 
-       LocalDateTime fecha,
+        @Schema(description = "ID único del movimiento", example = "1")
+        Long id,
 
-       UsuarioResponseDTO usuario,
+        @Schema(description = "Fecha y hora del movimiento", example = "2026-03-16T12:00:00")
+        LocalDateTime fecha,
 
-       TipoMovimiento tipoMovimiento,
+        @Schema(description = "Usuario que realizó el movimiento")
+        UsuarioResponseDTO usuario,
 
-       ProductoResponseDTO producto,
+        @Schema(description = "Tipo de movimiento realizado", example = "ENTRADA")
+        TipoMovimiento tipoMovimiento,
 
-       Integer cantidadProducto,
+        @Schema(description = "Producto involucrado en el movimiento")
+        ProductoResponseDTO producto,
 
-       BodegaResponseDTO bodegaOrigen,
+        @Schema(description = "Cantidad de producto movida", example = "50")
+        Integer cantidadProducto,
 
-       BodegaResponseDTO bodegaDestino
-) {
-}
+        @Schema(description = "Bodega de origen del movimiento")
+        BodegaResponseDTO bodegaOrigen,
+
+        @Schema(description = "Bodega de destino del movimiento (si aplica)")
+        BodegaResponseDTO bodegaDestino
+
+) {}
