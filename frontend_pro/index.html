@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogiTrack</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+
+<div id="login-view">
+  <div class="login-shell">
+    <div class="login-left">
+      <div>
+        <div class="ll-name">LogiTrack</div>
+        <div class="ll-sub">Gestión de Bodegas</div>
+      </div>
+      <div class="ll-footer">
+        <div class="ll-stats">
+          <div><div class="ll-stat-num">360°</div><div class="ll-stat-lbl">Visibilidad</div></div>
+          <div><div class="ll-stat-num">RT</div><div class="ll-stat-lbl">Inventario</div></div>
+          <div><div class="ll-stat-num">24/7</div><div class="ll-stat-lbl">Auditoría</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="lr-title">¡Bienvenido!</div>
+      <div class="lr-sub">Ingresa tus credenciales para continuar.</div>
+      <input type="hidden" id="api-base" value="http://localhost:8080">
+      <div class="f-group">
+        <label class="f-label">Usuario</label>
+        <input class="f-input" id="login-user" placeholder="nombre de usuario">
+      </div>
+      <div class="f-group">
+        <label class="f-label">Contraseña</label>
+        <input class="f-input" type="password" id="login-pass" placeholder="••••••••">
+      </div>
+      <button class="btn-login" onclick="doLogin()">Ingresar al sistema</button>
+      <div id="login-error" class="hidden"></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="app-view" class="hidden">
+  <header class="top-header">
+    <div class="header-brand">
+      <span class="brand-feather">🪶</span>
+      <span class="brand-name">Logi<em>Track</em></span>
+    </div>
+    <div class="header-center" id="page-title">Dashboard</div>
+    <div class="header-right">
+      <div class="user-pill">
+        <div class="avatar" id="user-avatar">U</div>
+        <span id="user-name-display">Usuario</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">Salir</button>
+    </div>
+  </header>
+
+  <div class="page-area" id="main-content"></div>
+
+  <nav class="float-nav">
+    <button class="fnav-btn active" onclick="navigate('dashboard')">
+      <span class="fnav-icon">⊞</span><span class="fnav-label">Inicio</span>
+    </button>
+    <button class="fnav-btn" onclick="navigate('bodegas')">
+      <span class="fnav-icon">⬡</span><span class="fnav-label">Bodegas</span>
+    </button>
+    <button class="fnav-btn" onclick="navigate('productos')">
+      <span class="fnav-icon">◈</span><span class="fnav-label">Productos</span>
+    </button>
+    <div class="fnav-sep"></div>
+    <button class="fnav-btn" onclick="navigate('movimientos')">
+      <span class="fnav-icon">⇄</span><span class="fnav-label">Movim.</span>
+    </button>
+    <button class="fnav-btn" onclick="navigate('usuarios')">
+      <span class="fnav-icon">◉</span><span class="fnav-label">Usuarios</span>
+    </button>
+    <button class="fnav-btn" onclick="navigate('reportes')">
+      <span class="fnav-icon">◫</span><span class="fnav-label">Reportes</span>
+    </button>
+    <button class="fnav-btn" onclick="navigate('auditoria')">
+      <span class="fnav-icon">◎</span><span class="fnav-label">Auditoría</span>
+    </button>
+  </nav>
+</div>
+
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title" id="modal-title-text">—</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast-container"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
