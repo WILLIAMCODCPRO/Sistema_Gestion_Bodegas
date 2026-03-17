@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GestionBodegasApplication {
 
 	public static void main(String[] args) {
+        //Bug
 		SpringApplication.run(GestionBodegasApplication.class, args);
 	}
 
