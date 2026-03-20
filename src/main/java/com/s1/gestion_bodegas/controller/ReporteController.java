@@ -2,6 +2,8 @@ package com.s1.gestion_bodegas.controller;
 
 import com.s1.gestion_bodegas.dto.response.ProductoMasMovidoResponseDTO;
 import com.s1.gestion_bodegas.dto.response.StockBodegaResponseDTO;
+import com.s1.gestion_bodegas.model.TipoMovimiento;
+import com.s1.gestion_bodegas.service.impl.MovimientoInventarioServiceimpl;
 import com.s1.gestion_bodegas.service.impl.ReporteServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +26,7 @@ import java.util.List;
 public class ReporteController {
 
     private final ReporteServiceImpl reporteServiceImpl;
+    private final MovimientoInventarioServiceimpl movimientoInventarioServiceimpl;
 
     @Operation(summary = "Stock por bodega", description = "Obtiene el stock disponible de productos agrupado por cada bodega")
     @ApiResponses(value = {
@@ -43,5 +46,15 @@ public class ReporteController {
     @GetMapping("/productos/masmovidos")
     public ResponseEntity<List<ProductoMasMovidoResponseDTO>> obtenerProductosMasMovidos() {
         return ResponseEntity.ok(reporteServiceImpl.productosMasMovidos());
+    }
+
+    @GetMapping("/movimientos/{tipoMovimiento}")
+    public ResponseEntity<Long> listarRecientes(@PathVariable TipoMovimiento tipoMovimiento){
+        return ResponseEntity.ok().body(movimientoInventarioServiceimpl.listarTipoMovimiento(tipoMovimiento));
+    }
+
+    @GetMapping("/movimientos/totales")
+    public ResponseEntity<Long> listarRecientes(){
+        return ResponseEntity.ok().body(movimientoInventarioServiceimpl.movimeintosTotales());
     }
 }

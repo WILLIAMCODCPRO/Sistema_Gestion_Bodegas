@@ -8,10 +8,7 @@ import com.s1.gestion_bodegas.mapper.BodegaMapper;
 import com.s1.gestion_bodegas.mapper.MovimientoInventarioMapper;
 import com.s1.gestion_bodegas.mapper.ProductoMapper;
 import com.s1.gestion_bodegas.mapper.UsuarioMapper;
-import com.s1.gestion_bodegas.model.Bodega;
-import com.s1.gestion_bodegas.model.MovimientoInventario;
-import com.s1.gestion_bodegas.model.Producto;
-import com.s1.gestion_bodegas.model.Usuario;
+import com.s1.gestion_bodegas.model.*;
 import com.s1.gestion_bodegas.repository.BodegaRepository;
 import com.s1.gestion_bodegas.repository.MovimientoInventarioRepository;
 import com.s1.gestion_bodegas.repository.ProductoRepository;
@@ -21,7 +18,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -116,5 +112,43 @@ public class MovimientoInventarioServiceimpl implements MovimientoInventarioServ
                 ))
                 .toList();
     }
+
+    @Override
+    public List<MovimientoInventarioResponseDTO> ultimosMovimientos() {
+        return movimientoInventarioRepository.findTop10ByOrderByFechaDesc()
+                .stream()
+                .map(dato -> movimientoInventarioMapper.entidadADTO(
+                        dato,
+                        usuarioMapper.entidadADTO(
+                                usuarioRepository.findById(dato.getUsuario().getId())
+                                        .orElseThrow()
+                        ),
+                        productoServiceImpl.buscarProductoID(dato.getProducto().getId()),
+                        dato.getBodegaOrigen() != null
+                                ? bodegaMapper.entidadADTO(
+                                bodegaRepository.findById(dato.getBodegaOrigen().getId())
+                                        .orElseThrow()
+                        )
+                                : null,
+                        dato.getBodegaDestino() != null
+                                ? bodegaMapper.entidadADTO(
+                                bodegaRepository.findById(dato.getBodegaDestino().getId())
+                                        .orElseThrow()
+                        )
+                                : null
+                ))
+                .toList();
+    }
+
+    @Override
+    public Long listarTipoMovimiento(TipoMovimiento tipoMovimiento) {
+        return movimientoInventarioRepository.countByTipoMovimiento(tipoMovimiento);
+    }
+
+    @Override
+    public Long movimeintosTotales() {
+        return movimientoInventarioRepository.count();
+    }
+
 
 }

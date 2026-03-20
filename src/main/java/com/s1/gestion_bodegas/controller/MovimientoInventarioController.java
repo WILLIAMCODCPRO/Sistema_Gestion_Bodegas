@@ -71,4 +71,10 @@ public class MovimientoInventarioController {
             @PathVariable LocalDateTime fecha2) {
         return ResponseEntity.ok().body(movimientoInventarioServiceimpl.listarMovimientoRangoFecha(fecha1, fecha2));
     }
+
+
+    @GetMapping("/movimientos/recientes")
+    public ResponseEntity<List<MovimientoInventarioResponseDTO>> listarRecientes(){
+        return ResponseEntity.ok().body(movimientoInventarioServiceimpl.ultimosMovimientos());
+    }
 }
